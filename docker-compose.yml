@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  server:
+    image: denoland/deno:latest
+    user: root
+    # depends_on:
+    #   - db
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+    command: sh ./script/run.sh
+    volumes:
+      - ${PWD}:/app
+      # - /app/postgres
+    working_dir: /app
+    networks:
+      - secure
+    env_file:
+      - .env
+
+networks:
+  secure:
+    driver: bridge
